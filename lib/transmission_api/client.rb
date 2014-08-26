@@ -54,6 +54,39 @@ class TransmissionApi::Client
     response["arguments"]["torrents"].first
   end
 
+  def find_all(ids)
+    log "get_torrents: #{ids}"
+
+    response =
+      post(
+        :method => "torrent-get",
+        :arguments => {
+          :fields => fields,
+          :ids => ids
+        }
+      )
+
+    response["arguments"]["torrents"]
+  end
+
+  def move(ids, new_location)
+    log "move_torrents: #{ids}"
+
+    ids = [ids] if !ids.is_a? Array
+
+    response =
+      post(
+        :method => "torrent-set-location",
+        :arguments => {
+          :ids => ids,
+          :location => new_location,
+          :move => true
+        }
+      )
+
+    response["arguments"] # seems empty if all is successful
+  end
+
   def create(filename)
     log "add_torrent: #{filename}"
 

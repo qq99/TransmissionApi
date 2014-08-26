@@ -31,9 +31,13 @@ Or install it yourself as:
         :url      => "http://127.0.0.1:9091/transmission/rpc"
       )
 
+
     torrents = transmission_api_client.all
     torrent = transmission_api_client.find(id)
-    torrent = transmission_api_client.create("http://torrent.com/nice_pic.torrent")
+    torrents = transmission_api_client.find_all([id1, id2, id3])
+    torrent = transmission_api_client.create("http://torrent.com/nice_pic.torrent") # or magnet URL
+    result = transmission_api_client.move(id, "/new/container/for/torrent/")
+    result = transmission_api_client.move([id, id2, id3], "/new/container/for/torrent/")
     transmission_api_client.destroy(id)
 
 ## State
