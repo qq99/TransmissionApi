@@ -116,6 +116,21 @@ class TransmissionApi::Client
     response
   end
 
+  def remove(id)
+    log "remove_torrent_nondestructive: #{id}"
+
+    response =
+      post(
+        :method => "torrent-remove",
+        :arguments => {
+          :ids => [id],
+          :"delete-local-data" => false
+        }
+      )
+
+    response
+  end
+
   def post(opts)
     response_parsed = JSON::parse( http_post(opts).body )
 
